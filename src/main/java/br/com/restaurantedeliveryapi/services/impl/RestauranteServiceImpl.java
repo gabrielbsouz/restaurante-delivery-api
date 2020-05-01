@@ -1,6 +1,5 @@
 package br.com.restaurantedeliveryapi.services.impl;
 
-import br.com.restaurantedeliveryapi.exceptions.EntidadeEmUsoException;
 import br.com.restaurantedeliveryapi.exceptions.EntidadeNaoEncontradaException;
 import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import br.com.restaurantedeliveryapi.models.Culinaria;
@@ -9,7 +8,6 @@ import br.com.restaurantedeliveryapi.repositories.CulinariaRepository;
 import br.com.restaurantedeliveryapi.repositories.RestauranteRepository;
 import br.com.restaurantedeliveryapi.services.RestauranteService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
