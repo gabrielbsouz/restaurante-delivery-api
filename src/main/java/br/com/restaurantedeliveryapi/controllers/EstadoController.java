@@ -69,4 +69,12 @@ public class EstadoController {
 
         return estado;
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> excluirEstado(@PathVariable Long id){
+
+        service.excluir(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

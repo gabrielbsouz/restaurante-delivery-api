@@ -1,11 +1,13 @@
 package br.com.restaurantedeliveryapi.services.impl;
 
+import br.com.restaurantedeliveryapi.exceptions.EntidadeEmUsoException;
 import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import br.com.restaurantedeliveryapi.models.Culinaria;
 import br.com.restaurantedeliveryapi.models.Estado;
 import br.com.restaurantedeliveryapi.repositories.EstadoRepository;
 import br.com.restaurantedeliveryapi.services.EstadoService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +44,7 @@ public class EstadoServiceImpl implements EstadoService {
     public Estado atualizar(Long id, Estado estado) {
 
         Estado estadoAtual = repository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Culinária com o id: " + id + " não foi encontrada!"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Estado com o id: " + id + " não foi encontrado!"));
 
         BeanUtils.copyProperties(estado, estadoAtual, "id");
         estado.setId(estadoAtual.getId());
@@ -53,5 +55,15 @@ public class EstadoServiceImpl implements EstadoService {
     @Override
     public void excluir(Long id) {
 
+        try {
+            repository.findById(id)
+                    .orElseThrow(() -> new RecursoNaoEncontradoException("Estado com o id: " + id + " não foi encontrada!"));
+
+            repository.deleteById(id);
+
+        } catch (DataIntegrityViolationException e){
+
+            throw new EntidadeEmUsoException("Estado com o id: " + id + " não pode ser removida, pois está em uso!");
+        }
     }
 }
