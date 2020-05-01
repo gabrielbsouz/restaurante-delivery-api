@@ -1,4 +1,4 @@
-package br.com.ranchodomirodeliveryapi.models;
+package br.com.restaurantedeliveryapi.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
