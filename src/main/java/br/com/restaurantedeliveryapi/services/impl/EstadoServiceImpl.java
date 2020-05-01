@@ -1,9 +1,11 @@
 package br.com.restaurantedeliveryapi.services.impl;
 
 import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
+import br.com.restaurantedeliveryapi.models.Culinaria;
 import br.com.restaurantedeliveryapi.models.Estado;
 import br.com.restaurantedeliveryapi.repositories.EstadoRepository;
 import br.com.restaurantedeliveryapi.services.EstadoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +40,14 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     public Estado atualizar(Long id, Estado estado) {
-        return null;
+
+        Estado estadoAtual = repository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Culinária com o id: " + id + " não foi encontrada!"));
+
+        BeanUtils.copyProperties(estado, estadoAtual, "id");
+        estado.setId(estadoAtual.getId());
+
+        return estadoAtual;
     }
 
     @Override
