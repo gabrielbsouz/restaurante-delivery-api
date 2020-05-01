@@ -1,5 +1,6 @@
 package br.com.restaurantedeliveryapi.services.impl;
 
+import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import br.com.restaurantedeliveryapi.models.Estado;
 import br.com.restaurantedeliveryapi.repositories.EstadoRepository;
 import br.com.restaurantedeliveryapi.services.EstadoService;
@@ -24,7 +25,9 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     public Estado buscar(Long id) {
-        return null;
+
+        return repository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Estado com id: " + id + " não foi encontrado!"));
     }
 
     @Override
