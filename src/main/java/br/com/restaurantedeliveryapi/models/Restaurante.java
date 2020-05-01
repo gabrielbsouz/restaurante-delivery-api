@@ -15,14 +15,10 @@ public class Restaurante {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false)
     private BigDecimal taxaFrete;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private Culinaria culinaria;
 
 }

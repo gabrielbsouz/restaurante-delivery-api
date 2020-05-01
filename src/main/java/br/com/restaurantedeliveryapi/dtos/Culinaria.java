@@ -1,19 +1,13 @@
-package br.com.restaurantedeliveryapi.models;
+package br.com.restaurantedeliveryapi.dtos;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
 public class Culinaria {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
     private String nome;
-
 }

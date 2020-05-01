@@ -40,7 +40,10 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
             invalidParameters.add(new ParametroInvalido(parametro, mensagem));
         }
 
-        Erro erro = new Erro(400, "Bad Request", "Os parâmetros informados são inválidos!");
+        Erro erro = new Erro();
+        erro.setHttpCode(status.value());
+        erro.setHttpMessage("Bad Request");
+        erro.setDescricao("Os parâmetros informados são inválidos!");
         erro.setParametrosInvalidos(invalidParameters);
 
         return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);

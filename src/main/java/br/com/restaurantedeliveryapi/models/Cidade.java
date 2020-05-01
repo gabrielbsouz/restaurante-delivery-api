@@ -15,10 +15,8 @@ public class Cidade {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false)
     private String nome;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private Estado estado;
 }

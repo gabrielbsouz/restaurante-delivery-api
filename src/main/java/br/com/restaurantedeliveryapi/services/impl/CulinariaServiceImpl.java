@@ -46,8 +46,7 @@ public class CulinariaServiceImpl implements CulinariaService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Culinária com o id: " + id + " não foi encontrada!"));
 
         BeanUtils.copyProperties(culinaria, culinariaAtual, "id");
-
-        culinariaAtual = repository.save(culinaria);
+        culinaria.setId(culinariaAtual.getId());
 
         return culinariaAtual;
     }

@@ -15,6 +15,5 @@ public class FormaPagamento {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false)
     private String descricao;
 }
