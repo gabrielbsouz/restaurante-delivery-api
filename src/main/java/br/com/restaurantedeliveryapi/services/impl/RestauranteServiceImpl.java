@@ -52,7 +52,7 @@ public class RestauranteServiceImpl implements RestauranteService {
     public Restaurante atualizar(Long id, Restaurante restaurante) {
 
         Restaurante restauranteAtual = repository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Culinária com o id: " + id + " não foi encontrada!"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Restaurante com o id: " + id + " não foi encontrado!"));
 
         Long idCulinaria = restaurante.getCulinaria().getId();
         Culinaria culinaria = culinariaRepository.findById(idCulinaria)
@@ -63,6 +63,7 @@ public class RestauranteServiceImpl implements RestauranteService {
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
 
         restaurante.setId(restauranteAtual.getId());
+
         return restauranteAtual;
     }
 

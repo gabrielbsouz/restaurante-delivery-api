@@ -3,10 +3,12 @@ package br.com.restaurantedeliveryapi.controllers;
 import br.com.restaurantedeliveryapi.dtos.Cidade;
 import br.com.restaurantedeliveryapi.dtos.Culinaria;
 import br.com.restaurantedeliveryapi.forms.CidadePostRequest;
+import br.com.restaurantedeliveryapi.forms.CidadePutRequest;
 import br.com.restaurantedeliveryapi.mappers.CidadeMapper;
 import br.com.restaurantedeliveryapi.services.CidadeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,5 +56,18 @@ public class CidadeController {
         Cidade cidade = mapper.modelToSchema(model);
 
         return new ResponseEntity<>(cidade, HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @PutMapping("/{id}")
+    public Cidade atualizarCidade(@PathVariable Long id, @Valid @RequestBody CidadePutRequest request){
+
+        br.com.restaurantedeliveryapi.models.Cidade model = mapper.schemaPutToModel(request);
+
+        service.atualizar(id, model);
+
+        Cidade cidade = mapper.modelToSchema(model);
+
+        return cidade;
     }
 }

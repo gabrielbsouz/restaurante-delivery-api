@@ -5,9 +5,11 @@ import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import br.com.restaurantedeliveryapi.models.Cidade;
 import br.com.restaurantedeliveryapi.models.Culinaria;
 import br.com.restaurantedeliveryapi.models.Estado;
+import br.com.restaurantedeliveryapi.models.Restaurante;
 import br.com.restaurantedeliveryapi.repositories.CidadeRepository;
 import br.com.restaurantedeliveryapi.repositories.EstadoRepository;
 import br.com.restaurantedeliveryapi.services.CidadeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -50,7 +52,21 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     public Cidade atualizar(Long id, Cidade cidade) {
-        return null;
+
+        Cidade cidadeAtual = repository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Restaurante com o id: " + id + " não foi encontrado!"));
+
+        Long idEstado = cidade.getEstado().getId();
+        Estado estado = estadoRepository.findById(idEstado)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Estado com o id: " + idEstado + " não existe!"));
+
+        cidade.setEstado(estado);
+
+        BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+
+        cidade.setId(cidadeAtual.getId());
+
+        return cidadeAtual;
     }
 
     @Override
