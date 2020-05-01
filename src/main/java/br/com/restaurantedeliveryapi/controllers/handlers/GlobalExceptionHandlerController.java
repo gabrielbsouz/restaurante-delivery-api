@@ -3,6 +3,7 @@ package br.com.restaurantedeliveryapi.controllers.handlers;
 import br.com.restaurantedeliveryapi.dtos.Erro;
 import br.com.restaurantedeliveryapi.dtos.ParametroInvalido;
 import br.com.restaurantedeliveryapi.exceptions.EntidadeEmUsoException;
+import br.com.restaurantedeliveryapi.exceptions.EntidadeNaoEncontradaException;
 import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -63,5 +64,13 @@ public class GlobalExceptionHandlerController extends ResponseEntityExceptionHan
         Erro erro = new Erro(409, "Conflict", ex.getMessage());
 
         return new ResponseEntity<>(erro, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public final ResponseEntity<Erro> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex) {
+
+        Erro erro = new Erro(400, "Bad Request", ex.getMessage());
+
+        return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
     }
 }
