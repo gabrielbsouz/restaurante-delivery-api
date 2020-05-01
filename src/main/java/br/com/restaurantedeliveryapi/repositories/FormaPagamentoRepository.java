@@ -1,6 +1,6 @@
-package br.com.ranchodomirodeliveryapi.repositories;
+package br.com.restaurantedeliveryapi.repositories;
 
-import br.com.ranchodomirodeliveryapi.models.FormaPagamento;
+import br.com.restaurantedeliveryapi.models.FormaPagamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, Long> {

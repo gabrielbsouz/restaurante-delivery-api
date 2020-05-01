@@ -1,4 +1,4 @@
-package br.com.ranchodomirodeliveryapi.models;
+package br.com.restaurantedeliveryapi.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,9 +15,6 @@ public class Permissao {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false)
     private String descricao;
 }
