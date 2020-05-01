@@ -1,7 +1,12 @@
 package br.com.restaurantedeliveryapi.services.impl;
 
+import br.com.restaurantedeliveryapi.exceptions.EntidadeNaoEncontradaException;
+import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import br.com.restaurantedeliveryapi.models.Cidade;
+import br.com.restaurantedeliveryapi.models.Culinaria;
+import br.com.restaurantedeliveryapi.models.Estado;
 import br.com.restaurantedeliveryapi.repositories.CidadeRepository;
+import br.com.restaurantedeliveryapi.repositories.EstadoRepository;
 import br.com.restaurantedeliveryapi.services.CidadeService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +16,11 @@ import java.util.List;
 public class CidadeServiceImpl implements CidadeService {
 
     private final CidadeRepository repository;
+    private final EstadoRepository estadoRepository;
 
-    public CidadeServiceImpl(CidadeRepository repository) {
+    public CidadeServiceImpl(CidadeRepository repository, EstadoRepository estadoRepository) {
         this.repository = repository;
+        this.estadoRepository = estadoRepository;
     }
 
     @Override
@@ -24,12 +31,21 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     public Cidade buscar(Long id) {
-        return null;
+
+        return repository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cidade com id: " + id + " não foi encontrado!"));
     }
 
     @Override
     public Cidade salvar(Cidade cidade) {
-        return null;
+
+        Long idEstado = cidade.getEstado().getId();
+        Estado estado = estadoRepository.findById(idEstado)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Estado com o id: " + idEstado + " não existe!"));
+
+        cidade.setEstado(estado);
+
+        return repository.save(cidade);
     }
 
     @Override
