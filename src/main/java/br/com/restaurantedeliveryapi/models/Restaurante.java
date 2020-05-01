@@ -1,4 +1,4 @@
-package br.com.ranchodomirodeliveryapi.models;
+package br.com.restaurantedeliveryapi.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,14 +15,10 @@ public class Restaurante {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false)
     private BigDecimal taxaFrete;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    private Cozinha cozinha;
+    private Culinaria culinaria;
 
 }
