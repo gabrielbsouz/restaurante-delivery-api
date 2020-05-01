@@ -1,13 +1,14 @@
 package br.com.restaurantedeliveryapi.controllers;
 
 import br.com.restaurantedeliveryapi.dtos.Estado;
+import br.com.restaurantedeliveryapi.forms.EstadoPostRequest;
 import br.com.restaurantedeliveryapi.mappers.EstadoMapper;
 import br.com.restaurantedeliveryapi.services.EstadoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,5 +41,17 @@ public class EstadoController {
         Estado estado = mapper.modelToSchema(model);
 
         return estado;
+    }
+
+    @PostMapping
+    public ResponseEntity<Estado> cadastrarEstado(@Valid @RequestBody EstadoPostRequest request){
+
+        br.com.restaurantedeliveryapi.models.Estado model = mapper.schemaPostToModel(request);
+
+        service.salvar(model);
+
+        Estado estado = mapper.modelToSchema(model);
+
+        return new ResponseEntity<>(estado, HttpStatus.CREATED);
     }
 }

@@ -32,7 +32,8 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     public Estado salvar(Estado estado) {
-        return null;
+
+        return repository.save(estado);
     }
 
     @Override
