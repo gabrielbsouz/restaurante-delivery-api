@@ -14,11 +14,7 @@ import java.util.List;
 @Service
 public class CulinariaServiceImpl implements CulinariaService {
 
-    private final CulinariaRepository repository;
-
-    public CulinariaServiceImpl(CulinariaRepository repository) {
-        this.repository = repository;
-    }
+    private CulinariaRepository repository;
 
     @Override
     public List<Culinaria> listar() {
@@ -30,7 +26,7 @@ public class CulinariaServiceImpl implements CulinariaService {
     public Culinaria buscar(Long id) {
 
         return repository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Cozinha com o id: " + id + " não foi encontrada!"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Culinaria com o id: " + id + " não foi encontrada!"));
     }
 
     @Override
