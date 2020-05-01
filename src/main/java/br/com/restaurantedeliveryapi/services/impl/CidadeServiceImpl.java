@@ -72,5 +72,9 @@ public class CidadeServiceImpl implements CidadeService {
     @Override
     public void excluir(Long id) {
 
+        repository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cidade com o id: " + id + " não foi encontrado!"));
+
+        repository.deleteById(id);
     }
 }

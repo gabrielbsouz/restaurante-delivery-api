@@ -70,4 +70,12 @@ public class CidadeController {
 
         return cidade;
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> excluirCidade(@PathVariable Long id){
+
+        service.excluir(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
