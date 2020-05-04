@@ -1,6 +1,5 @@
 package br.com.restaurantedeliveryapi.services.impl;
 
-import br.com.restaurantedeliveryapi.exceptions.EntidadeEmUsoException;
 import br.com.restaurantedeliveryapi.exceptions.EntidadeNaoEncontradaException;
 import br.com.restaurantedeliveryapi.exceptions.RecursoNaoEncontradoException;
 import br.com.restaurantedeliveryapi.models.Culinaria;
@@ -9,7 +8,6 @@ import br.com.restaurantedeliveryapi.repositories.CulinariaRepository;
 import br.com.restaurantedeliveryapi.repositories.RestauranteRepository;
 import br.com.restaurantedeliveryapi.services.RestauranteService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,7 +52,7 @@ public class RestauranteServiceImpl implements RestauranteService {
     public Restaurante atualizar(Long id, Restaurante restaurante) {
 
         Restaurante restauranteAtual = repository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Culinária com o id: " + id + " não foi encontrada!"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Restaurante com o id: " + id + " não foi encontrado!"));
 
         Long idCulinaria = restaurante.getCulinaria().getId();
         Culinaria culinaria = culinariaRepository.findById(idCulinaria)
@@ -65,6 +63,7 @@ public class RestauranteServiceImpl implements RestauranteService {
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
 
         restaurante.setId(restauranteAtual.getId());
+
         return restauranteAtual;
     }
 

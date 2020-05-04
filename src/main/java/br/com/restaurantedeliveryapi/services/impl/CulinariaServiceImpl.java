@@ -14,7 +14,11 @@ import java.util.List;
 @Service
 public class CulinariaServiceImpl implements CulinariaService {
 
-    private CulinariaRepository repository;
+    private final CulinariaRepository repository;
+
+    public CulinariaServiceImpl(CulinariaRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<Culinaria> listar() {
